@@ -5,7 +5,6 @@ namespace DuplicateImageFInder
 {
     public partial class Form1 : Form
     {
-        public string folder = @"C:\Users\haden\Desktop\Pictures VIdeos & Music\Pictures\fox pics\";
         public Form1()
         {
             InitializeComponent();
@@ -13,13 +12,14 @@ namespace DuplicateImageFInder
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            Start(10, 4, 24);
+            if (Program.compareTwo) Compare2();
+            else Start(10, 4, 24);
         }
 
 
         void Start(int slices, float percentDifferenceToFail, int threads = 1)
         {
-            string[] files = Directory.GetFiles(folder, "*", SearchOption.AllDirectories);
+            string[] files = Directory.GetFiles(Program.FolderToCheckPath, "*", SearchOption.AllDirectories);
             string[] files2 = new string[files.Length];
 
             //Get an array of only accepted image types
@@ -47,7 +47,7 @@ namespace DuplicateImageFInder
             //test them all
 
             //get the control image
-            Bitmap control = Program.OpenFileAsBmp(@"C:\Users\haden\Desktop\control (2).png");
+            Bitmap control = Program.OpenFileAsBmp(Program.ImageToFindDuplicatesOfPath);
             Color[,] ctrl = Algorithm.AverageImage(control, slices);
 
             //Threading
@@ -113,8 +113,8 @@ namespace DuplicateImageFInder
             int mult = 10;//how much to multiply resolution by
             int slices = 10;//how many slices x & y
 
-            Bitmap a = Program.OpenFileAsBmp(@"C:\Users\haden\Desktop\Pictures VIdeos & Music\SUS.jpg");
-            Bitmap b = Program.OpenFileAsBmp(@"C:\Users\haden\Desktop\Pictures VIdeos & Music\xcv.jpg");
+            Bitmap a = Program.OpenFileAsBmp(Program.imageA);
+            Bitmap b = Program.OpenFileAsBmp(Program.imageB);
 
             Color[,] cA = Algorithm.AverageImage(a, slices);
             Color[,] cB = Algorithm.AverageImage(b, slices);

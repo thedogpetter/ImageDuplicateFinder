@@ -23,7 +23,6 @@ namespace DuplicateImageFInder
 
         /// <summary>
         /// Converts an image into its float array of slice averages
-        /// 
         /// </summary>
         /// <returns></returns>
         public static Color[,] AverageImage(Bitmap a, int slices)
@@ -137,6 +136,13 @@ namespace DuplicateImageFInder
             return (totalDiff / a.Length) * 100;
         }
 
+        /// <summary>
+        /// convert an array of color averages to an image
+        /// </summary>
+        /// <param name="colors"></param>
+        /// <param name="slices"></param>
+        /// <param name="scaleMultiplier"></param>
+        /// <returns></returns>
         public static Bitmap ConvertAveragesToImage(Color[,] colors, int slices, int scaleMultiplier = 10)
         {
             Bitmap b = new Bitmap(slices * scaleMultiplier, slices * scaleMultiplier);
