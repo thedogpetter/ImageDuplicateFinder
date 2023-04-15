@@ -159,5 +159,41 @@ namespace DuplicateImageFInder
         }
 
         public static float Sqr(float a) => a * a;
+
+
+        public static float GetDownscalePercentage(int width, int height)
+        {
+            if (width <= Program.downscaleResTarget || height <= Program.downscaleResTarget) return 100;
+
+            return (width > height ? (float)Program.downscaleResTarget / width : (float)Program.downscaleResTarget / height) * 100;
+        }
+        public static Bitmap DownscaleImage(Bitmap a, float percentage)
+        {
+            if (percentage < 0) percentage = 0;
+            else if (percentage > 100) percentage = 100;
+            percentage *= 0.01f;
+
+            float skip = (1 / percentage);//number of pixels to skip
+            //if (skip < 1) skip = 1;
+
+            Bitmap b = new((int)(a.Width * percentage), (int)(a.Height * percentage));
+
+            float aX = 0;
+            float aY = 0;
+            for (int x = 0; x < b.Width; x++)
+            {
+                for (int y = 0; y < b.Height; y++)
+                {
+                    b.SetPixel(x, y, a.GetPixel((int)aX, (int)aY));
+                    aY += skip;
+                    if (aY > a.Height) aY = a.Height;
+                }
+                aY = 0;
+                aX += skip;
+                if (aX > a.Width) aX = a.Width;
+            }
+
+            return b;
+        }
     }
 }

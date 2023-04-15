@@ -36,6 +36,9 @@ namespace DuplicateImageFInder
             {
                 test = Program.OpenFileAsBmp(filesToCheck[i]);
                 if (test == null) continue;//move along if test failed to open
+
+                test = Algorithm.DownscaleImage(test, Algorithm.GetDownscalePercentage(test.Width, test.Height));
+
                 tst = Algorithm.AverageImage(test, slices);
 
                 difference = Algorithm.CompareImages(ctrl, tst, slices);

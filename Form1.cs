@@ -12,8 +12,19 @@ namespace DuplicateImageFInder
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            
             if (Program.compareTwo) Compare2();
             else Start(10, 4, 24);
+
+            /*
+            Bitmap a = Program.OpenFileAsBmp(Program.ImageToFindDuplicatesOfPath);
+            a = Algorithm.DownscaleImage(a, Algorithm.GetDownscalePercentage(a.Width, a.Height));
+            Color[,] c = Algorithm.AverageImage(a, 10);
+            //a = Algorithm.ConvertAveragesToImage(c, 10, 1);
+            
+
+            pictureBox1.Image = a;
+            */
         }
 
 
@@ -48,8 +59,10 @@ namespace DuplicateImageFInder
 
             //get the control image
             Bitmap control = Program.OpenFileAsBmp(Program.ImageToFindDuplicatesOfPath);
+            control = Algorithm.DownscaleImage(control, Algorithm.GetDownscalePercentage(control.Width, control.Height));
             Color[,] ctrl = Algorithm.AverageImage(control, slices);
 
+            pictureBox1.Image = Algorithm.ConvertAveragesToImage(ctrl, 10);
             //Threading
 
             //break up workload
@@ -98,11 +111,12 @@ namespace DuplicateImageFInder
 
             StringBuilder sB = new();
             sB.Append($"Matches found: {matches.Count} -> ");
+            
             for (int i = 0; i < matches.Count; i++)
             {
                 sB.Append($"{matches[i]}{(i < matches.Count-1 ? ", " : "")}");
             }
-
+            
             label1.Text = sB.ToString();
             control.Dispose();
         }

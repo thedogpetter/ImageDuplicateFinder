@@ -6,18 +6,21 @@ namespace DuplicateImageFInder
         //Most of the program is inside Form1.cs and Algorithm.cs <--------------
 
         //if true it will compare two images, if false it will compare 1 image to a folder of images
-        public static bool compareTwo = true;
+        public static bool compareTwo = false;
 
         //paths for if compareTwo = false
-        public static string FolderToCheckPath = @"Enter a valid path here";
-        public static string ImageToFindDuplicatesOfPath = @"Enter a valid path here";
+        public static string FolderToCheckPath = @"<Enter path here>";
+        public static string ImageToFindDuplicatesOfPath = @"<Enter path here>";
 
         //paths for if compareTwo = true
-        public static string imageA = @"Enter a valid path here";
-        public static string imageB = @"Enter a valid path here";
+        public static string imageA = @"<Enter path here>";
+        public static string imageB = @"<Enter path here>";
 
         //threads only make a difference when comparing 1 image to a folder of images
         public static int numThreads = -1;//-1 will auto detect
+
+        //bringing this too low will cause some fuckery and result in a crash, lowest I tried was 80 and it worked
+        public static int downscaleResTarget = 200;//will automatically downscale images to this width or height (depending on which is smallest)
 
         /// <summary>
         ///  The main entry point for the application.

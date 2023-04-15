@@ -28,4 +28,14 @@ namespace DuplicateImageFInder
             return (float)Math.Sqrt(xS + yS + zS);
         }
     }
+
+    public class Vector2
+    {
+        public float x; public float y;
+        public Vector2(float x = 0, float y = 0)
+        {
+            this.x = x;
+            this.y = y;
+        }
+    }
 }
